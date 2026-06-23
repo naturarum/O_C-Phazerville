@@ -10,6 +10,7 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
 #include "OC_config.h"
 #include "OC_io.h"
 #include "HSMIDI.h"

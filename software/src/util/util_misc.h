@@ -5,9 +5,9 @@
 #include "../OC_options.h"
 
 template <uint32_t a, uint32_t b, uint32_t c, uint32_t d>
-struct FOURCC
+struct FourCC
 {
-  static const uint32_t value = ((a&0xff) << 24) | ((b&0xff) << 16) | ((c&0xff) << 8) | (d&0xff);
+  static constexpr uint32_t value = ((a&0xff) << 24) | ((b&0xff) << 16) | ((c&0xff) << 8) | (d&0xff);
 };
 
 template <uint32_t a, uint32_t b>
