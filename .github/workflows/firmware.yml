@@ -4,23 +4,31 @@ on:
   push:
     paths:
       - 'software/**'
+      - '.github/workflows/firmware.yml'
+  pull_request:
+    paths:
+      - 'software/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        env: [T32dev, T40, T41]
 
     steps:
     - uses: actions/checkout@v6
 
     - name: Setup env
       run: |
-        echo "OC_ARTIFACT_TAG=${GITHUB_REF_NAME}-$(git rev-parse --short HEAD)" | tr '/' '_' >> $GITHUB_ENV
+        echo "OC_ARTIFACT_TAG=${GITHUB_REF_NAME}-${{ matrix.env }}-$(git rev-parse --short HEAD)" | tr '/' '_' >> $GITHUB_ENV
 
     - name: Cache PlatformIO
       uses: actions/cache@v5
       with:
         path: ~/.platformio
-        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+        key: ${{ runner.os }}-${{ matrix.env }}-${{ hashFiles('**/lockfiles') }}
 
     - name: Set up Python
       uses: actions/setup-python@v6
@@ -36,7 +44,15 @@ jobs:
     - name: Build firmware
       working-directory: software/
       run: |
-        pio run
+        pio run -e ${{ matrix.env }} | tee build.log
+
+    - name: Report size
+      working-directory: software/
+      run: |
+        echo "### ${{ matrix.env }}" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        grep -E "^(RAM|Flash):" build.log >> $GITHUB_STEP_SUMMARY || true
+        echo '```' >> $GITHUB_STEP_SUMMARY
 
     - name: Copy artifact
       uses: actions/upload-artifact@v7
@@ -46,3 +62,23 @@ jobs:
         path: |
           software/*.hex
           software/.pio/build/*/*.hex
+
+  host-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        submodules: true
+
+    - name: Run unit tests
+      working-directory: software/test/
+      run: make
+
+  applet-guards:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Check applet registry guards
+      working-directory: software/
+      run: python3 tools/gen_applet_guards.py --check
