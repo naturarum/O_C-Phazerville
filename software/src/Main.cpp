@@ -476,6 +476,10 @@ void FASTRUN loop() {
             Serial.printf("'I' = Toggle App ISR [%s]\n", OC::CORE::app_isr_enabled ? "ON" : "OFF");
             Serial.printf("'D' = Toggle Display Redraw [%s]\n", OC::CORE::display_update_enabled ? "ON" : "OFF");
             Serial.printf("'L' = Toggle App Loop [%s]\n", OC::CORE::app_loop_enabled ? "ON" : "OFF");
+            Serial.println("'+' / '-' = UP / DOWN button");
+            Serial.println("'[' / ']' = Left / Right encoder press ('{' '}' = long press)");
+            Serial.println("',' / '.' = Left encoder turn CCW / CW");
+            Serial.println("'<' / '>' = Right encoder turn CCW / CW");
 #if defined(__IMXRT1062__)
 #if defined(ARDUINO_TEENSY41)
             Serial.println("'i' = scan all i2c addresses");
@@ -524,22 +528,35 @@ void FASTRUN loop() {
             break;
 #endif
 
-            // TODO:
           case '+':
+            OC::ui.SimulateButtonPress(OC::CONTROL_BUTTON_UP);
+            break;
           case '-':
-            // simulate UP and DOWN buttons
+            OC::ui.SimulateButtonPress(OC::CONTROL_BUTTON_DOWN);
             break;
           case '[':
+            OC::ui.SimulateButtonPress(OC::CONTROL_BUTTON_L);
+            break;
           case ']':
-            // simulate Encoder button press
+            OC::ui.SimulateButtonPress(OC::CONTROL_BUTTON_R);
+            break;
+          case '{':
+            OC::ui.SimulateButtonPress(OC::CONTROL_BUTTON_L, true); // long press
+            break;
+          case '}':
+            OC::ui.SimulateButtonPress(OC::CONTROL_BUTTON_R, true); // long press
             break;
           case ',':
+            OC::ui.SimulateEncoder(OC::CONTROL_ENCODER_L, -1);
+            break;
           case '.':
-            // simulate Left Encoder turn
+            OC::ui.SimulateEncoder(OC::CONTROL_ENCODER_L, 1);
             break;
           case '<':
+            OC::ui.SimulateEncoder(OC::CONTROL_ENCODER_R, -1);
+            break;
           case '>':
-            // simulate Right Encoder turn
+            OC::ui.SimulateEncoder(OC::CONTROL_ENCODER_R, 1);
             break;
 #endif
           default:

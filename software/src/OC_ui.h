@@ -134,6 +134,18 @@ public:
     jump_to_menu_ = true;
   }
 
+#ifdef PRINT_DEBUG
+  // Inject synthetic UI events (serial "secret menu" in Main.cpp) so the
+  // module can be driven from a computer, e.g. alongside screen capture.
+  void SimulateButtonPress(UiControl control, bool long_press = false) {
+    PushEvent(long_press ? UI::EVENT_BUTTON_LONG_PRESS : UI::EVENT_BUTTON_PRESS,
+              control, 0, button_state_);
+  }
+  void SimulateEncoder(UiControl control, int16_t increment) {
+    PushEvent(UI::EVENT_ENCODER, control, increment, button_state_);
+  }
+#endif
+
 private:
 
   uint32_t ticks_;
