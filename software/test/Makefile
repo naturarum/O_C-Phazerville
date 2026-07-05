@@ -2,7 +2,7 @@
 #
 
 # DIRECTORIES & CONFIG
-OC_SRC_DIR = ../o_c_REV/
+OC_SRC_DIR = ../src/
 BUILD_DIR = ./build/
 
 DEFINES = TESTING
@@ -14,7 +14,8 @@ CXX   = g++
 LD    = g++
 AR    = ar -r
 
-CPPFLAGS += -I$(OC_SRC_DIR) -I$(GTEST_DIR)include -Wall -Werror -std=c++11
+CPPFLAGS += -I./stubs -I$(OC_SRC_DIR) -I$(OC_SRC_DIR)src/extern -I$(GTEST_DIR)include -Wall -Werror -std=c++17
+CPPFLAGS += -include ./stubs/Arduino.h
 
 CPPFLAGS += $(addprefix -D, $(DEFINES))
 
@@ -23,10 +24,10 @@ GTEST_DIR = ./gtest/googletest/
 LIBGTEST = $(BUILD_DIR)libgtest.a
 
 # SOURCE FILES
-OC_CPP_FILES = $(OC_SRC_DIR)braids_quantizer.cpp \
-	$(OC_SRC_DIR)/src/util/util_settings.cpp
+OC_CPP_FILES = $(OC_SRC_DIR)src/extern/braids_quantizer.cpp \
+	$(OC_SRC_DIR)src/util/util_settings.cpp
 
-VPATH = . $(OC_SRC_DIR) $(OC_SRC_DIR)/src/util
+VPATH = . $(OC_SRC_DIR) $(OC_SRC_DIR)src/extern $(OC_SRC_DIR)src/util
 CPP_FILES = $(notdir $(wildcard *.cpp)) $(notdir $(OC_CPP_FILES))
 OBJ_FILES = $(CPP_FILES:.cpp=.o)
 OBJS      = $(patsubst %,$(BUILD_DIR)%,$(OBJ_FILES))
