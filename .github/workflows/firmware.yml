@@ -62,7 +62,9 @@ jobs:
         include-hidden-files: true
         path: |
           software/*.hex
+          software/*.ehex
           software/.pio/build/*/*.hex
+          software/.pio/build/*/*.ehex
 
   host-tests:
     runs-on: ubuntu-latest

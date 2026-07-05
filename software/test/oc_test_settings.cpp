@@ -29,7 +29,7 @@ SETTINGS_ARRAY_DEFINE(TestPackU4EvenSettings);
 
 TEST(TestSettings,TestPackU4Even)
 {
-  EXPECT_EQ(5, TestPackU4EvenSettings::storageSize());
+  EXPECT_EQ(5u, TestPackU4EvenSettings::storageSize());
 
   TestPackU4EvenSettings settings;
   settings.InitDefaults();
@@ -65,7 +65,7 @@ SETTINGS_ARRAY_DEFINE(TestPackU4OddSettings);
 
 TEST(TestSettings,TestPackU4Odd)
 {
-  EXPECT_EQ(5, TestPackU4OddSettings::storageSize());
+  EXPECT_EQ(5u, TestPackU4OddSettings::storageSize());
 
   TestPackU4OddSettings settings;
   settings.InitDefaults();
@@ -99,7 +99,7 @@ SETTINGS_ARRAY_DEFINE(TestPackU4OddEndSettings);
 
 TEST(TestSettings,TestPackU4OddEnd)
 {
-  EXPECT_EQ(5, TestPackU4OddSettings::storageSize());
+  EXPECT_EQ(5u, TestPackU4OddSettings::storageSize());
 
   TestPackU4OddEndSettings settings;
   settings.InitDefaults();
