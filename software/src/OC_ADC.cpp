@@ -552,6 +552,9 @@ void ADC::Read(IOFrame *ioframe)
   }
 }
 
+// Teensy 3.x — no hardware ID voltage divider
+float ADC::Read_ID_Voltage() { return 0; }
+
 #elif defined(__IMXRT1062__)
 /*static*/void FASTRUN ADC::Scan_DMA() {
   static int ratelimit = 0;

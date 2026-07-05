@@ -24,7 +24,9 @@ extern char _extram_start[], _extram_end[];
 #endif
 extern char _ebss[], _heap_end[], *__brkval, _estack;
 
+#if defined(ARDUINO_TEENSY41)
 extern USBHost thisUSB;
+#endif
 
 #ifdef POLYLFO_DEBUG  
 extern void POLYLFO_debug();
@@ -450,7 +452,9 @@ void Ui::DebugStats() {
       midi_monitor();
     }
 
+#if defined(ARDUINO_TEENSY41)
     thisUSB.Task();
+#endif
     CORE::FlushTasks();
 
     const auto &current_menu = debug_menus[current_menu_index];

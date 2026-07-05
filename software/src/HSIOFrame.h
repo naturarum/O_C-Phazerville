@@ -154,6 +154,12 @@ struct MIDIMapping : protected MIDIMapSettings {
   MIDIMapping() {}
   ~MIDIMapping() {}
 
+  // settings blob copy in/out (e.g. EEPROM-backed global settings on T3.x)
+  const MIDIMapSettings& get_settings() const { return *this; }
+  void apply_settings(const MIDIMapSettings &s) {
+    static_cast<MIDIMapSettings&>(*this) = s;
+  }
+
   static constexpr size_t Size = 64; // Make this compatible with Packable
 
   // state

@@ -114,32 +114,15 @@ public:
 
     // returns true if changed
     bool StoreInputMap() {
-      // TODO: this is likely broken in v2.0
-      uint16_t cvmap = 0;
-      uint16_t trigmap = 0;
-      for (size_t i = 0; i < 4; ++i) {
-        trigmap |= (uint16_t(HS::trigmap[i].source + 1) & 0x0F) << (i*4);
-        cvmap |= (uint16_t(HS::cvmap[i].source + 1) & 0x0F) << (i*4);
-      }
-
-      bool changed = (uint16_t(values_[HEMISPHERE_TRIGMAP]) != trigmap)
-                   || (uint16_t(values_[HEMISPHERE_CVMAP]) != cvmap);
-      apply_value(HEMISPHERE_TRIGMAP, trigmap);
-      apply_value(HEMISPHERE_CVMAP, cvmap);
-
-      return changed;
+      // Disabled: the old 4-bit encoding cannot round-trip the v2.0
+      // DigitalInputMap source byte (3-bit type | 5-bit index), so storing
+      // it would corrupt the mapping on reload. Input maps simply aren't
+      // persisted in T3.2 Hemisphere presets until a 16-bit-per-map format
+      // (via DigitalInputMap::Pack/Unpack) replaces this.
+      return false;
     }
     void LoadInputMap() {
-      // TODO: this is likely broken in v2.0
-      for (size_t i = 0; i < 4; ++i) {
-        int val = (uint16_t(values_[HEMISPHERE_TRIGMAP]) >> (i*4)) & 0x0F;
-        if (val != 0)
-          HS::trigmap[i].source = val - 1;
-
-        val = (uint16_t(values_[HEMISPHERE_CVMAP]) >> (i*4)) & 0x0F;
-        if (val != 0)
-          HS::cvmap[i].source = val - 1;
-      }
+      // Disabled, see StoreInputMap().
     }
 
     uint64_t GetGlobals() {

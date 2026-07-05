@@ -68,7 +68,7 @@ static GlobalSettingsStorage global_settings_storage;
 #endif
 static DMAMEM AppDataStorage app_data_storage;
 
-#ifdef __IMXRT1062__
+// plain constants, safe on all targets (PhzConfig calls are stubbed on T3.x)
 enum GlobalSettingsDataKeys : uint16_t {
   // upper 8 bits of key, non-zero
   METADATA_KEY        = 1 << 8, // selected app id, etc.
@@ -83,7 +83,6 @@ enum GlobalSettingsDataKeys : uint16_t {
   SCALE_METADATA = 0xff,
   SCALE_NOTEDATA = 0,
 };
-#endif
 
 FLASHMEM
 static void SaveGlobalSettings() {
@@ -209,13 +208,7 @@ static void SaveGlobalSettings() {
     global_settings.q_engines[i].root_note = HS::q_engine[i].root_note;
   }
   for (int i = 0; i < MIDIMAP_MAX; ++i) {
-    global_settings.midi_maps[i].channel       = HS::frame.MIDIState.mapping[i].channel      ;
-    global_settings.midi_maps[i].dac_polyvoice = HS::frame.MIDIState.mapping[i].dac_polyvoice;
-    global_settings.midi_maps[i].function      = HS::frame.MIDIState.mapping[i].function     ;
-    global_settings.midi_maps[i].function_cc   = HS::frame.MIDIState.mapping[i].function_cc  ;
-    global_settings.midi_maps[i].transpose     = HS::frame.MIDIState.mapping[i].transpose    ;
-    global_settings.midi_maps[i].range_low     = HS::frame.MIDIState.mapping[i].range_low    ;
-    global_settings.midi_maps[i].range_high    = HS::frame.MIDIState.mapping[i].range_high   ;
+    global_settings.midi_maps[i] = HS::frame.MIDIState.mapping[i].get_settings();
   }
 
   global_settings_storage.Save(global_settings);
@@ -543,13 +536,7 @@ void AppSwitcher::Init(bool reset_settings) {
         HS::q_engine[i].Reconfig();
       }
       for (int i = 0; i < MIDIMAP_MAX; ++i) {
-        HS::frame.MIDIState.mapping[i].channel       = global_settings.midi_maps[i].channel      ;
-        HS::frame.MIDIState.mapping[i].dac_polyvoice = global_settings.midi_maps[i].dac_polyvoice;
-        HS::frame.MIDIState.mapping[i].function      = global_settings.midi_maps[i].function     ;
-        HS::frame.MIDIState.mapping[i].function_cc   = global_settings.midi_maps[i].function_cc  ;
-        HS::frame.MIDIState.mapping[i].transpose     = global_settings.midi_maps[i].transpose    ;
-        HS::frame.MIDIState.mapping[i].range_low     = global_settings.midi_maps[i].range_low    ;
-        HS::frame.MIDIState.mapping[i].range_high    = global_settings.midi_maps[i].range_high   ;
+        HS::frame.MIDIState.mapping[i].apply_settings(global_settings.midi_maps[i]);
       }
       HS::frame.MIDIState.UpdateMidiChannelFilter();
       HS::frame.MIDIState.UpdateMaxPolyphony();

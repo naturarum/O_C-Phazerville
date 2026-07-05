@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 #ifdef __IMXRT1062__
 #include <LittleFS.h>
 #include <SD.h>
@@ -36,5 +38,27 @@ namespace PhzConfig {
   void printSpaces(int num);
   void eraseFiles(FS &fs = myfs);
 
+}
+#else
+// No filesystem-backed config storage on Teensy 3.x — provide inert stubs so
+// callers compile everywhere and degrade gracefully (reads fail, writes vanish).
+namespace PhzConfig {
+  using KEY = uint16_t;
+  using VALUE = uint64_t;
+
+  const char * const CONFIG_FILENAME = "";
+
+  inline void Init() {}
+  inline bool load_config(const char* = CONFIG_FILENAME) { return false; }
+  inline bool save_config(const char* = CONFIG_FILENAME) { return false; }
+  inline void clear_config() {}
+
+  inline void setValue(KEY, VALUE) {}
+  inline bool getValue(KEY, VALUE&) { return false; }
+  inline void deleteKey(KEY) {}
+
+  inline void setData(KEY, VALUE) {}
+  inline bool getData(KEY, VALUE&) { return false; }
+  inline void deleteData(KEY) {}
 }
 #endif
