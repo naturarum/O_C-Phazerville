@@ -85,3 +85,7 @@ jobs:
     - name: Check applet registry guards
       working-directory: software/
       run: python3 tools/gen_applet_guards.py --check
+
+    - name: Check build manifest consistency
+      working-directory: software/
+      run: python3 res/check_manifest.py
