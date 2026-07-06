@@ -1,0 +1,1078 @@
+{
+  "schema": 1,
+  "generated_from": "src/apps/_config.h + src/applets/_config.h",
+  "limits": {
+    "T32": {
+      "flash": 262144,
+      "ram": 65536
+    }
+  },
+  "targets": [
+    {
+      "id": "T32",
+      "env": "custom",
+      "defines": [],
+      "label": "Teensy 3.2 \u2014 standard o_C"
+    },
+    {
+      "id": "T32_VOR",
+      "env": "custom",
+      "defines": [
+        "VOR"
+      ],
+      "label": "Teensy 3.2 \u2014 VOR (Plum Audio OCP/1uO_c/4Robots)"
+    },
+    {
+      "id": "T32_NLM",
+      "env": "custom",
+      "defines": [
+        "NORTHERNLIGHT"
+      ],
+      "label": "Teensy 3.2 \u2014 Northern Light 4U Buchla"
+    },
+    {
+      "id": "T32_NLM_HOC",
+      "env": "custom",
+      "defines": [
+        "NLM_hOC"
+      ],
+      "label": "Teensy 3.2 \u2014 NLM horizontal O_C"
+    },
+    {
+      "id": "T32_NLM_CARDOC",
+      "env": "custom",
+      "defines": [
+        "NLM_cardOC"
+      ],
+      "label": "Teensy 3.2 \u2014 NLM Easel card"
+    },
+    {
+      "id": "T32_NLM_2OC_L",
+      "env": "custom",
+      "defines": [
+        "NORTHERNLIGHT_2OC_LEFTSIDE"
+      ],
+      "label": "Teensy 3.2 \u2014 NLM 2OC left side"
+    }
+  ],
+  "features": [
+    {
+      "id": "GRIDS2",
+      "define": "DRUMMAP_GRIDS2",
+      "name": "DrumMap Grids2 patterns",
+      "desc": "Alternative pattern bank for the DrumMap applet",
+      "aliases": [
+        "GRIDS2"
+      ]
+    },
+    {
+      "id": "MOAR_PRESETS",
+      "define": "MOAR_PRESETS",
+      "name": "More Hemisphere presets",
+      "desc": "16 preset slots instead of 4 (uses more EEPROM)",
+      "aliases": [
+        "MOAR_PRESETS"
+      ]
+    },
+    {
+      "id": "PEWPEWPEW",
+      "define": "PEWPEWPEW",
+      "name": "Easter-egg applets",
+      "desc": "Enables the hidden/extra applet set",
+      "aliases": [
+        "PEWPEWPEW"
+      ]
+    },
+    {
+      "id": "NO_HEMISPHERE",
+      "define": "NO_HEMISPHERE",
+      "name": "No Hemisphere",
+      "desc": "Drop the Hemisphere dual-applet app entirely (frees a lot of flash)",
+      "aliases": [
+        "NOHEMI",
+        "NO_HEM"
+      ]
+    }
+  ],
+  "apps": [
+    {
+      "id": "CALIBR8OR",
+      "define": "ENABLE_APP_CALIBR8OR",
+      "name": "Calibr8or",
+      "desc": "4-ch quantizer/transposer with per-output calibration",
+      "aliases": [
+        "CALIBR"
+      ],
+      "t32": true
+    },
+    {
+      "id": "SCENES",
+      "define": "ENABLE_APP_SCENES",
+      "name": "Scenes",
+      "desc": "Store and morph between 4 snapshots of all outputs",
+      "aliases": [
+        "SCENE"
+      ],
+      "t32": true
+    },
+    {
+      "id": "ASR",
+      "define": "ENABLE_APP_ASR",
+      "name": "CopierMaschine",
+      "desc": "Quantizing analog shift register",
+      "aliases": [
+        "COPIER"
+      ],
+      "t32": true
+    },
+    {
+      "id": "QUANTERMAIN",
+      "define": "ENABLE_APP_QUANTERMAIN",
+      "name": "Quantermain",
+      "desc": "Quad quantizer with Turing/logistic/S&H sources",
+      "aliases": [
+        "QUANTER"
+      ],
+      "t32": true
+    },
+    {
+      "id": "METAQ",
+      "define": "ENABLE_APP_METAQ",
+      "name": "Meta-Q",
+      "desc": "Dual quantizer with scale sequencing",
+      "aliases": [
+        "META"
+      ],
+      "t32": true
+    },
+    {
+      "id": "CHORDS",
+      "define": "ENABLE_APP_CHORDS",
+      "name": "Acid Curds",
+      "desc": "Chord quantizer and progression sequencer",
+      "aliases": [
+        "ACID"
+      ],
+      "t32": true
+    },
+    {
+      "id": "SEQUINS",
+      "define": "ENABLE_APP_SEQUINS",
+      "name": "Sequins",
+      "desc": "Dual-channel note sequencer",
+      "aliases": [
+        "SEQUIN"
+      ],
+      "t32": true
+    },
+    {
+      "id": "AUTOMATONNETZ",
+      "define": "ENABLE_APP_AUTOMATONNETZ",
+      "name": "Automatonnetz",
+      "desc": "Vector-grid Tonnetz chord sequencer",
+      "aliases": [
+        "AUTOMATON"
+      ],
+      "t32": true
+    },
+    {
+      "id": "H1200",
+      "define": "ENABLE_APP_H1200",
+      "name": "Harrington 1200",
+      "desc": "Neo-Riemannian triad transformations",
+      "aliases": [
+        "HARRING"
+      ],
+      "t32": true
+    },
+    {
+      "id": "PIQUED",
+      "define": "ENABLE_APP_PIQUED",
+      "name": "Piqued",
+      "desc": "Quad trigger-driven envelope generator",
+      "aliases": [
+        "PIQUED"
+      ],
+      "t32": true
+    },
+    {
+      "id": "POLYLFO",
+      "define": "ENABLE_APP_POLYLFO",
+      "name": "Quadraturia",
+      "desc": "Quadrature wavetable LFO",
+      "aliases": [
+        "QUADRAT"
+      ],
+      "t32": true
+    },
+    {
+      "id": "LORENZ",
+      "define": "ENABLE_APP_LORENZ",
+      "name": "Low-rents",
+      "desc": "Lorenz & R\u00f6ssler chaotic modulators",
+      "aliases": [
+        "LOW-RENT",
+        "LORENZ"
+      ],
+      "t32": true
+    },
+    {
+      "id": "BBGEN",
+      "define": "ENABLE_APP_BBGEN",
+      "name": "Dialectic Ping Pong",
+      "desc": "Bouncing-ball envelope generators",
+      "aliases": [
+        "DIALECT",
+        "BBGEN"
+      ],
+      "t32": true
+    },
+    {
+      "id": "BYTEBEATGEN",
+      "define": "ENABLE_APP_BYTEBEATGEN",
+      "name": "Viznutcracker, sweet!",
+      "desc": "Quad bytebeat generators",
+      "aliases": [
+        "BYTE",
+        "VIZNUT"
+      ],
+      "t32": true
+    },
+    {
+      "id": "NEURAL_NETWORK",
+      "define": "ENABLE_APP_NEURAL_NETWORK",
+      "name": "Neural Net",
+      "desc": "3-neuron trigger logic network",
+      "aliases": [
+        "NEURAL"
+      ],
+      "t32": true
+    },
+    {
+      "id": "DARKEST_TIMELINE",
+      "define": "ENABLE_APP_DARKEST_TIMELINE",
+      "name": "Darkest Timeline",
+      "desc": "Probabilistic dual-timeline sequencer",
+      "aliases": [
+        "DARKEST"
+      ],
+      "t32": true
+    },
+    {
+      "id": "ENIGMA",
+      "define": "ENABLE_APP_ENIGMA",
+      "name": "Enigma",
+      "desc": "Turing-machine composition workshop",
+      "aliases": [
+        "ENIGMA"
+      ],
+      "t32": true
+    },
+    {
+      "id": "MIDI",
+      "define": "ENABLE_APP_MIDI",
+      "name": "Captain MIDI",
+      "desc": "USB MIDI-to-CV / CV-to-MIDI interface",
+      "aliases": [
+        "CAPTAIN",
+        "MIDI"
+      ],
+      "t32": true
+    },
+    {
+      "id": "PONG",
+      "define": "ENABLE_APP_PONG",
+      "name": "Pong",
+      "desc": "Pong game (and LFO!)",
+      "aliases": [
+        "PONG"
+      ],
+      "t32": true
+    },
+    {
+      "id": "REFERENCES",
+      "define": "ENABLE_APP_REFERENCES",
+      "name": "References",
+      "desc": "Fixed reference voltages & tuning helpers",
+      "aliases": [
+        "REFS",
+        "REFERENCE"
+      ],
+      "t32": true
+    },
+    {
+      "id": "PASSENCORE",
+      "define": "ENABLE_APP_PASSENCORE",
+      "name": "Passencore",
+      "desc": "Chord-tone CV generator",
+      "aliases": [
+        "PASSEN"
+      ],
+      "t32": true
+    }
+  ],
+  "applets": [
+    {
+      "id": "ADSREG",
+      "applet_id": 8,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "ADEG",
+      "applet_id": 34,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "MiniASR",
+      "applet_id": 47,
+      "categories": [
+        "modulator",
+        "quantizer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "AttenuateOffset",
+      "applet_id": 56,
+      "categories": [
+        "utility"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Binary",
+      "applet_id": 41,
+      "categories": [
+        "logic",
+        "modulator"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "BitBeat",
+      "applet_id": 79,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "BootsNCat",
+      "applet_id": 55,
+      "categories": [
+        "other"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Brancher",
+      "applet_id": 4,
+      "categories": [
+        "utility",
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "BugCrack",
+      "applet_id": 51,
+      "categories": [
+        "other"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Burst",
+      "applet_id": 31,
+      "categories": [
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Button",
+      "applet_id": 65,
+      "categories": [
+        "utility"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Calculate",
+      "applet_id": 12,
+      "categories": [
+        "utility"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Calibr8",
+      "applet_id": 88,
+      "categories": [
+        "utility"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Carpeggio",
+      "applet_id": 32,
+      "categories": [
+        "sequencer",
+        "quantizer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Chordinator",
+      "applet_id": 64,
+      "categories": [
+        "quantizer"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "ClockDivider",
+      "applet_id": 6,
+      "categories": [
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "ClkToGate",
+      "applet_id": 78,
+      "categories": [
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "ClockSkip",
+      "applet_id": 28,
+      "categories": [
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Combin8",
+      "applet_id": 82,
+      "categories": [
+        "utility"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Compare",
+      "applet_id": 30,
+      "categories": [
+        "utility"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Cumulus",
+      "applet_id": 5,
+      "categories": [
+        "logic"
+      ],
+      "t32": true
+    },
+    {
+      "id": "CVRecV2",
+      "applet_id": 24,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "CVSeq",
+      "applet_id": 92,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "DivSeq",
+      "applet_id": 68,
+      "categories": [
+        "sequencer",
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "DivSeq10",
+      "applet_id": 80,
+      "categories": [
+        "sequencer",
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "DrLoFi",
+      "applet_id": 16,
+      "categories": [
+        "other"
+      ],
+      "t32": true
+    },
+    {
+      "id": "DrumMap",
+      "applet_id": 57,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "DualQuant",
+      "applet_id": 9,
+      "categories": [
+        "quantizer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "OffsetQuant",
+      "applet_id": 90,
+      "categories": [
+        "quantizer"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "DuoTET",
+      "applet_id": 63,
+      "categories": [
+        "quantizer"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "EbbAndLfo",
+      "applet_id": 7,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "EnigmaJr",
+      "applet_id": 45,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true,
+      "gated_by": "ENABLE_APP_ENIGMA"
+    },
+    {
+      "id": "EnsOscKey",
+      "applet_id": 35,
+      "categories": [
+        "quantizer"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "EnvFollow",
+      "applet_id": 42,
+      "categories": [
+        "utility",
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "EnvSeq",
+      "applet_id": 91,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": false
+    },
+    {
+      "id": "EuclidO",
+      "applet_id": 83,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "EuclidX",
+      "applet_id": 15,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "GameOfLife",
+      "applet_id": 22,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "GateDelay",
+      "applet_id": 29,
+      "categories": [
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "GatedVCA",
+      "applet_id": 17,
+      "categories": [
+        "utility",
+        "logic"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "Logic",
+      "applet_id": 10,
+      "categories": [
+        "logic",
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "LowerRenz",
+      "applet_id": 21,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Metronome",
+      "applet_id": 50,
+      "categories": [
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "MidiLoop",
+      "applet_id": 81,
+      "categories": [
+        "midi"
+      ],
+      "t32": false
+    },
+    {
+      "id": "MarkoV",
+      "applet_id": 93,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "MarkovPerc",
+      "applet_id": 94,
+      "categories": [
+        "other"
+      ],
+      "t32": true
+    },
+    {
+      "id": "hMIDIIn",
+      "applet_id": 150,
+      "categories": [
+        "midi"
+      ],
+      "t32": true
+    },
+    {
+      "id": "hMIDIOut",
+      "applet_id": 27,
+      "categories": [
+        "midi"
+      ],
+      "t32": true
+    },
+    {
+      "id": "MultiScale",
+      "applet_id": 73,
+      "categories": [
+        "quantizer"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "Palimpsest",
+      "applet_id": 20,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Pigeons",
+      "applet_id": 71,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "PolyDiv",
+      "applet_id": 72,
+      "categories": [
+        "sequencer",
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Ponglet",
+      "applet_id": 99,
+      "categories": [
+        "other"
+      ],
+      "t32": true
+    },
+    {
+      "id": "ProbabilityDivider",
+      "applet_id": 59,
+      "categories": [
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "ProbabilityMelody",
+      "applet_id": 62,
+      "categories": [
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Relabi",
+      "applet_id": 89,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "ResetClock",
+      "applet_id": 70,
+      "categories": [
+        "utility",
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "RndWalk",
+      "applet_id": 69,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "RunglBook",
+      "applet_id": 44,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "ScaleDuet",
+      "applet_id": 26,
+      "categories": [
+        "quantizer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Schmitt",
+      "applet_id": 40,
+      "categories": [
+        "logic"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Scope",
+      "applet_id": 23,
+      "categories": [
+        "other"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Seq32",
+      "applet_id": 75,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "SeqPlay7",
+      "applet_id": 76,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "SequenceX",
+      "applet_id": 14,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "ShiftGate",
+      "applet_id": 48,
+      "categories": [
+        "logic",
+        "modulator",
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "ShiftReg",
+      "applet_id": 77,
+      "categories": [
+        "logic",
+        "modulator",
+        "clocking"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "Shredder",
+      "applet_id": 58,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Shuffle",
+      "applet_id": 36,
+      "categories": [
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Slew",
+      "applet_id": 19,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Squanch",
+      "applet_id": 46,
+      "categories": [
+        "quantizer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Stairs",
+      "applet_id": 61,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Strum",
+      "applet_id": 74,
+      "categories": [
+        "quantizer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Switch",
+      "applet_id": 3,
+      "categories": [
+        "utility"
+      ],
+      "t32": true
+    },
+    {
+      "id": "SwitchSeq",
+      "applet_id": 38,
+      "categories": [
+        "utility"
+      ],
+      "t32": true
+    },
+    {
+      "id": "TB_3PO",
+      "applet_id": 60,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "TLNeuron",
+      "applet_id": 13,
+      "categories": [
+        "logic"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Trending",
+      "applet_id": 37,
+      "categories": [
+        "logic"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "TrigSeq",
+      "applet_id": 11,
+      "categories": [
+        "sequencer",
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "TrigSeq16",
+      "applet_id": 25,
+      "categories": [
+        "sequencer",
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "TruthCat3",
+      "applet_id": 85,
+      "categories": [
+        "logic",
+        "sequencer",
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "TruthCat4",
+      "applet_id": 84,
+      "categories": [
+        "logic",
+        "sequencer",
+        "clocking"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Tuner",
+      "applet_id": 39,
+      "categories": [
+        "other"
+      ],
+      "t32": true
+    },
+    {
+      "id": "TwoRings",
+      "applet_id": 18,
+      "categories": [
+        "sequencer"
+      ],
+      "t32": true
+    },
+    {
+      "id": "VectorEG",
+      "applet_id": 52,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "VectorLFO",
+      "applet_id": 49,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "VectorMod",
+      "applet_id": 53,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "VectorMorph",
+      "applet_id": 54,
+      "categories": [
+        "modulator"
+      ],
+      "t32": true
+    },
+    {
+      "id": "Voltage",
+      "applet_id": 43,
+      "categories": [
+        "utility"
+      ],
+      "t32": true
+    },
+    {
+      "id": "WTVCO",
+      "applet_id": 67,
+      "categories": [
+        "other"
+      ],
+      "t32": true,
+      "gated_by": "PEWPEWPEW"
+    },
+    {
+      "id": "Xfader",
+      "applet_id": 33,
+      "categories": [
+        "utility"
+      ],
+      "t32": true
+    }
+  ]
+}

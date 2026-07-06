@@ -1,0 +1,101 @@
+:root {
+  --bg: #14161a;
+  --panel: #1d2026;
+  --text: #d8dce2;
+  --dim: #8a919c;
+  --accent: #ffb454;
+  --accent2: #59c2ff;
+  --border: #2a2e36;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 16px/1.5 -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header, main, footer {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 1rem 1.2rem;
+}
+
+header h1 { color: var(--accent); margin-bottom: .2rem; }
+header p { color: var(--dim); margin-top: 0; }
+
+h2 {
+  color: var(--accent2);
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: .3rem;
+  margin-top: 2rem;
+}
+
+h3 { color: var(--accent); font-size: .85rem; text-transform: uppercase; margin: .6rem 0 .2rem; }
+
+.hint { color: var(--dim); font-size: .85rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: .5rem;
+}
+
+.card, .row {
+  display: flex;
+  gap: .55rem;
+  align-items: flex-start;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .5rem .6rem;
+  cursor: pointer;
+}
+.row { border: none; background: none; padding: .15rem .2rem; align-items: center; }
+.card:hover { border-color: var(--accent); }
+.card small { color: var(--dim); }
+.card.unavailable { opacity: .4; cursor: not-allowed; }
+
+input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); margin-top: .2rem; }
+
+details summary {
+  cursor: pointer;
+  color: var(--accent2);
+  margin-bottom: .6rem;
+}
+
+pre#config-line {
+  background: #0d0f12;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .8rem;
+  overflow-x: auto;
+  color: var(--accent);
+}
+
+.buttons { display: flex; gap: .6rem; flex-wrap: wrap; }
+
+.button {
+  display: inline-block;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .55rem 1rem;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button.primary {
+  background: var(--accent);
+  color: #14161a;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+.button:hover { border-color: var(--accent2); }
+
+footer { color: var(--dim); font-size: .8rem; border-top: 1px solid var(--border); margin-top: 2.5rem; }
+footer a { color: var(--accent2); }

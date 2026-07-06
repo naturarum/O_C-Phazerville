@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>o_C Custom Firmware Builder</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>o_C custom firmware builder</h1>
+  <p>Pick what goes in your Ornament&nbsp;&amp;&nbsp;Crime's 256KB. A robot
+     compiles it and hands you a <code>.hex</code> — no toolchain needed.</p>
+</header>
+
+<main>
+  <section id="target-section">
+    <h2>1 · Hardware</h2>
+    <div id="targets"></div>
+  </section>
+
+  <section id="apps-section">
+    <h2>2 · Full apps</h2>
+    <p class="hint">Hemisphere (the dual-applet system) is always included
+       unless you drop it under Extras. Each app costs flash — the build
+       fails with a friendly message if your selection doesn't fit, and the
+       exact size is reported back. <em>(Live size estimates arrive in a
+       future update.)</em></p>
+    <div id="apps" class="grid"></div>
+  </section>
+
+  <section id="applets-section">
+    <h2>3 · Hemisphere applets</h2>
+    <p class="hint">All applets are included by default. Untick to leave one
+       out and reclaim flash for apps.</p>
+    <details>
+      <summary>Show all <span id="applet-count"></span> applets</summary>
+      <div id="applets" class="grid"></div>
+    </details>
+  </section>
+
+  <section id="features-section">
+    <h2>4 · Extras</h2>
+    <div id="features" class="grid"></div>
+  </section>
+
+  <section id="request-section">
+    <h2>5 · Build it</h2>
+    <p>Your build request:</p>
+    <pre id="config-line"></pre>
+    <div class="buttons">
+      <a id="open-issue" class="button primary" target="_blank" rel="noopener">
+        Request build on GitHub</a>
+      <button id="copy-config" class="button">Copy config</button>
+      <button id="copy-link" class="button">Copy shareable link</button>
+    </div>
+    <p class="hint">Opens a prefilled GitHub issue (free account needed —
+       just press <em>Submit</em>). The build takes a couple of minutes; the
+       bot then comments a direct download link anyone can use.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Part of the <a id="repo-link" href="#">O_C-Phazerville fork</a> ·
+     firmware by many hands · original o_C by mxmxmx ·
+     Phazerville Suite by djphazer</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

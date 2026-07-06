@@ -1,0 +1,145 @@
+name: Custom Build (issue-ops)
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write   # upload release assets
+  issues: write     # comment, label, close
+
+concurrency:
+  group: custom-${{ github.event.issue.user.login }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: contains(github.event.issue.labels.*.name, 'custom-build')
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Parse request
+      id: parse
+      env:
+        ISSUE_BODY: ${{ github.event.issue.body }}
+      run: |
+        set +e
+        OUT=$(python3 software/res/parse_build_request.py)
+        CODE=$?
+        set -e
+        echo "$OUT"
+        if [ $CODE -ne 0 ]; then
+          echo "PARSE_ERROR<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$OUT" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+        fi
+        exit 0
+
+    - name: Reject invalid request
+      if: steps.parse.outputs.PARSE_ERROR != ''
+      uses: actions/github-script@v9
+      with:
+        script: |
+          const err = `${{ steps.parse.outputs.PARSE_ERROR }}`;
+          await github.rest.issues.createComment({
+            ...context.repo, issue_number: context.issue.number,
+            body: `Sorry, I couldn't understand that build request.\n\n\`\`\`\n${err}\n\`\`\`\nPlease use the web configurator to compose a valid request, then open a new issue.`
+          });
+          await github.rest.issues.update({
+            ...context.repo, issue_number: context.issue.number,
+            state: 'closed', labels: ['custom-build', 'invalid']
+          });
+          core.setFailed('invalid build request');
+
+    - name: Cache PlatformIO
+      uses: actions/cache@v5
+      with:
+        path: ~/.platformio
+        key: ${{ runner.os }}-custom-${{ hashFiles('**/lockfiles') }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.x'
+        cache: 'pip'
+        cache-dependency-path: '**/requirements.txt'
+
+    - run: |
+        pip3 install --upgrade pip
+        pip3 install -r .github/workflows/requirements.txt
+
+    - name: Build firmware
+      id: build
+      working-directory: software/
+      env:
+        CUSTOM_BUILD_FLAGS: ${{ steps.parse.outputs.CUSTOM_BUILD_FLAGS }}
+      run: |
+        set +e
+        pio run -e ${{ steps.parse.outputs.BUILD_ENV }} 2>&1 | tee build.log
+        CODE=${PIPESTATUS[0]}
+        set -e
+        grep -E "^(RAM|Flash):" build.log > sizes.txt || true
+        echo "SIZES<<EOF" >> "$GITHUB_OUTPUT"
+        cat sizes.txt >> "$GITHUB_OUTPUT"
+        echo "EOF" >> "$GITHUB_OUTPUT"
+        if grep -qE "region .FLASH. overflowed|greater than maximum allowed" build.log; then
+          echo "OVERFLOW=true" >> "$GITHUB_OUTPUT"
+        fi
+        exit $CODE
+
+    - name: Upload hex to rolling release
+      id: upload
+      if: success()
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        HEX=$(ls software/.pio/build/*/*.hex | head -1)
+        NAME="oC-custom-issue${{ github.event.issue.number }}-$(git rev-parse --short HEAD).hex"
+        cp "$HEX" "$NAME"
+        gh release upload custom-builds "$NAME" --clobber
+        echo "ASSET_URL=https://github.com/${{ github.repository }}/releases/download/custom-builds/$NAME" >> "$GITHUB_OUTPUT"
+
+    - name: Report success
+      if: success()
+      uses: actions/github-script@v9
+      with:
+        script: |
+          const url = `${{ steps.upload.outputs.ASSET_URL }}`;
+          const sizes = `${{ steps.build.outputs.SIZES }}`;
+          await github.rest.issues.createComment({
+            ...context.repo, issue_number: context.issue.number,
+            body: [
+              `## Your firmware is ready 🎛️`,
+              ``,
+              `**[Download .hex](${url})** — flash it with the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).`,
+              ``,
+              `Actual size (linker-verified):`,
+              '```', sizes, '```',
+              `Config used:`,
+              '```', context.payload.issue.body.split('\n').find(l => l.trim().startsWith('oc-build/1') || l.includes('/buildthis')) || '(legacy)', '```',
+              `_Assets older than 30 days are pruned — save your .hex._`
+            ].join('\n')
+          });
+          await github.rest.issues.update({
+            ...context.repo, issue_number: context.issue.number, state: 'closed'
+          });
+
+    - name: Report failure
+      if: failure() && steps.parse.outputs.PARSE_ERROR == ''
+      uses: actions/github-script@v9
+      with:
+        script: |
+          const overflow = `${{ steps.build.outputs.OVERFLOW }}` === 'true';
+          const sizes = `${{ steps.build.outputs.SIZES }}`;
+          const runUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
+          const body = overflow
+            ? `**Your selection doesn't fit in the Teensy 3.2's 256KB flash.**\n\n\`\`\`\n${sizes}\n\`\`\`\nRemove an app or two (or disable more applets) and try again — the configurator shows what costs the most.`
+            : `The build failed unexpectedly — [build log](${runUrl}). Please report this; it's likely a firmware bug, not your config.`;
+          await github.rest.issues.createComment({
+            ...context.repo, issue_number: context.issue.number, body
+          });
+          await github.rest.issues.update({
+            ...context.repo, issue_number: context.issue.number, state: 'closed'
+          });

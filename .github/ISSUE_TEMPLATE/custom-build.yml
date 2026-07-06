@@ -1,0 +1,22 @@
+name: Custom Firmware Build
+description: Request a custom Teensy 3.2 firmware build (use the web configurator to fill this in)
+title: "Custom build request"
+labels: ["custom-build"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submitting this issue starts an automated firmware build.
+        The easiest way to fill it in is the **web configurator** — it
+        composes the config line below for you. When the build finishes, a
+        bot comments here with a direct download link and the exact
+        flash/RAM usage, then closes the issue.
+  - type: textarea
+    id: config
+    attributes:
+      label: Build configuration
+      description: One `oc-build/1 ...` line (from the configurator), or legacy `/buildthis KEYWORD ...` syntax.
+      placeholder: "oc-build/1 target=T32 apps=+CALIBR8OR,+SCENES applets=-WTVCO"
+      render: text
+    validations:
+      required: true
