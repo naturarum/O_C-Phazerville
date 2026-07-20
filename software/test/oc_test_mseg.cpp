@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
 
+#include <functional>
+
 #include "Arduino.h"  // host stubs
 #include "engines/MsegEnvelope.h"
 #include "src/extern/peaks_resources.h"
@@ -68,9 +70,7 @@ TEST(Mseg, TimeShiftSlowsByPowerOfTwo) {
 TEST(Mseg, CurveEndpointsExact) {
   for (uint8_t c : {uint8_t(0), uint8_t(40), uint8_t(128), uint8_t(220), uint8_t(255)}) {
     auto e = MakeTwoPoint(180, c);
-    // first tick: value should be >= start (0)
     e.Tick(GateFlags::GATE_RISING | GateFlags::GATE_HIGH);
-    EXPECT_GE(e.value(), 0);
     // tick to EOC: on the EOC tick, value parks at the last level (65535)
     TickUntil(e, GateFlags::GATE_HIGH,
               [&] { return e.event_flags() & mseg::EVENT_EOC; }, 2000000);
