@@ -25,7 +25,9 @@ LIBGTEST = $(BUILD_DIR)libgtest.a
 
 # SOURCE FILES
 OC_CPP_FILES = $(OC_SRC_DIR)src/extern/braids_quantizer.cpp \
-	$(OC_SRC_DIR)src/util/util_settings.cpp
+	$(OC_SRC_DIR)src/util/util_settings.cpp \
+	$(OC_SRC_DIR)src/extern/peaks_resources.cpp \
+	$(OC_SRC_DIR)tideslite.cpp
 
 VPATH = . $(OC_SRC_DIR) $(OC_SRC_DIR)src/extern $(OC_SRC_DIR)src/util
 CPP_FILES = $(notdir $(wildcard *.cpp)) $(notdir $(OC_CPP_FILES))

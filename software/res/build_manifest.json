@@ -96,6 +96,17 @@
   ],
   "apps": [
     {
+      "id": "ENVELOOP",
+      "define": "ENABLE_APP_ENVELOOP",
+      "name": "Enveloop",
+      "desc": "4x multi-segment envelope (MSEG) with per-segment curves and loop region",
+      "aliases": [
+        "ENVELOOP",
+        "MSEG"
+      ],
+      "t32": true
+    },
+    {
       "id": "CALIBR8OR",
       "define": "ENABLE_APP_CALIBR8OR",
       "name": "Calibr8or",

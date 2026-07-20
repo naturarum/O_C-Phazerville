@@ -46,6 +46,10 @@ namespace menu = OC::menu;
 #include "apps/SETTINGS.h"
 
 
+#ifdef ENABLE_APP_ENVELOOP
+#include "apps/Enveloop.h"
+#endif
+
 namespace OC {
 
 /*
@@ -136,6 +140,9 @@ static AppContainer<void // this space intentionally left blank
   , AppWaveformEditor
 #endif
   , AppBackup
+#ifdef ENABLE_APP_ENVELOOP
+  , Enveloop
+#endif
 > app_container;
 
 static_assert(decltype(app_container)::TotalAppDataStorageSize() < AppData::kAppDataSize,
